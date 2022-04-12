@@ -1,7 +1,7 @@
 package com.xwc.ipribbon;
 
 import com.netflix.loadbalancer.IRule;
-import com.xwc.ipribbon.rule.IpLoadBalancerRule;
+import com.xwc.ipribbon.rule.LoadBalancerIpRule;
 import org.springframework.context.annotation.Bean;
 
 /**
@@ -12,6 +12,6 @@ import org.springframework.context.annotation.Bean;
 public class DefaultRibbonConfig {
     @Bean
     public IRule ribbonRule() {
-        return new IpLoadBalancerRule();
+        return new LoadBalancerIpRule();
     }
 }

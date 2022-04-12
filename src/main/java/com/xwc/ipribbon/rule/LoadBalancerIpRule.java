@@ -19,7 +19,7 @@ import java.util.List;
  * 作者：徐卫超 (cc)
  * 时间 2022/4/7 9:25
  */
-public class IpLoadBalancerRule extends RandomRule {
+public class LoadBalancerIpRule extends RandomRule {
 
 
     @Autowired
@@ -55,7 +55,7 @@ public class IpLoadBalancerRule extends RandomRule {
             }
         }
         if (ipRule.getExcludeIpRegex() != null) {
-            return chooseNotExcludesIp(lb, key);
+            return chooseIncludeIp(lb, key);
         } else {
             return super.choose(lb, key);
         }
@@ -64,7 +64,7 @@ public class IpLoadBalancerRule extends RandomRule {
     /**
      * Randomly choose from all living servers
      */
-    public Server chooseNotExcludesIp(ILoadBalancer lb, Object key) {
+    public Server chooseIncludeIp(ILoadBalancer lb, Object key) {
         if (lb == null) {
             return null;
         }

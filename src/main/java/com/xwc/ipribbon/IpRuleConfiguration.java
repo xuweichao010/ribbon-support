@@ -4,6 +4,7 @@ import com.xwc.ipribbon.feign.IpRequestInterceptor;
 import com.xwc.ipribbon.zuul.IpRuleFilter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.netflix.ribbon.RibbonClients;
 import org.springframework.context.annotation.Bean;
@@ -43,9 +44,8 @@ public class IpRuleConfiguration {
     }
 
 
-
-
     @Bean
+    @ConfigurationProperties(value = "ribbon.support")
     public IpRibbonProperties developerProperties() {
         return new IpRibbonProperties();
     }

@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
  */
 
 @Data
-@ConfigurationProperties(value = "ip-ribbon")
+
 public class IpRibbonProperties {
 
     public static final String AUTO_CONFIG = "ip-ribbon.rule.enable";
