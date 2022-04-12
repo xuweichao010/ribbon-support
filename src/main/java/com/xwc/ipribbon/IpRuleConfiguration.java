@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * 类描述：自动化配置ip-ribbon的配置类
+ * 类描述：自动化配置ribbon-support的配置类
  * 作者：徐卫超 (cc)
  * 时间 2022/4/7 9:44
  */
