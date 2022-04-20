@@ -1,4 +1,4 @@
-package com.xwc.ipribbon;
+package com.xwc.support.ribbon;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -13,10 +13,7 @@ import java.util.regex.Pattern;
  */
 
 @Data
-
 public class IpRibbonProperties {
-
-    public static final String AUTO_CONFIG = "ip-ribbon.rule.enable";
 
     /**
      * 路由配置
@@ -43,7 +40,7 @@ public class IpRibbonProperties {
          */
         private Pattern excludeIpRegex;
 
-        private String headName = "RouterIp";
+        private String targetRouterParam = "RouterIp";
 
         public void setDefaultIp(String defaultIp) {
             if ("127.0.0.1".equals(defaultIp) || "localhost".equals(defaultIp)) {

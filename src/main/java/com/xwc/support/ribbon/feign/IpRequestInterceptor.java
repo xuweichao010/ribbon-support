@@ -1,6 +1,6 @@
-package com.xwc.ipribbon.feign;
+package com.xwc.support.ribbon.feign;
 
-import com.xwc.ipribbon.IpRibbonProperties;
+import com.xwc.support.ribbon.IpRibbonProperties;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
 import org.springframework.beans.factory.annotation.Autowired;

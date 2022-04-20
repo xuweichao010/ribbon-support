@@ -1,7 +1,7 @@
-package com.xwc.ipribbon;
+package com.xwc.support.ribbon;
 
-import com.xwc.ipribbon.feign.IpRequestInterceptor;
-import com.xwc.ipribbon.zuul.IpRuleFilter;
+import com.xwc.support.ribbon.feign.IpRequestInterceptor;
+import com.xwc.support.ribbon.zuul.IpRuleFilter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -18,10 +18,12 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @EnableConfigurationProperties
 @ConditionalOnClass(name = "org.springframework.cloud.netflix.ribbon.RibbonClients")
-public class IpRuleConfiguration {
+public class RibbonConfiguration {
+
+    public static final String AUTO_CONFIG = "ribbon.support.ipRule.enable";
 
     @Configuration
-    @ConditionalOnProperty(value = IpRibbonProperties.AUTO_CONFIG, havingValue = "true")
+    @ConditionalOnProperty(value = AUTO_CONFIG, havingValue = "true")
     @RibbonClients(defaultConfiguration = DefaultRibbonConfig.class)
     @ConditionalOnClass(name = "feign.RequestInterceptor")
     public static class RuleFeignConfig {
@@ -33,7 +35,7 @@ public class IpRuleConfiguration {
 
 
     @Configuration
-    @ConditionalOnProperty(value = IpRibbonProperties.AUTO_CONFIG, havingValue = "true")
+    @ConditionalOnProperty(value = AUTO_CONFIG, havingValue = "true")
     @RibbonClients(defaultConfiguration = DefaultRibbonConfig.class)
     @ConditionalOnClass(name = "com.netflix.zuul.ZuulFilter")
     public static class RuleZuulConfig {

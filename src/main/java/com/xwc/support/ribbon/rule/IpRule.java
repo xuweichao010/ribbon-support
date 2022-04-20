@@ -1,16 +1,13 @@
-package com.xwc.ipribbon.rule;
+package com.xwc.support.ribbon.rule;
 
 import com.netflix.client.config.IClientConfig;
 import com.netflix.loadbalancer.ILoadBalancer;
 import com.netflix.loadbalancer.RandomRule;
 import com.netflix.loadbalancer.Server;
-import com.xwc.ipribbon.IpRibbonProperties;
+import com.xwc.support.ribbon.IpRibbonProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,11 +16,13 @@ import java.util.List;
  * 作者：徐卫超 (cc)
  * 时间 2022/4/7 9:25
  */
-public class LoadBalancerIpRule extends RandomRule {
+public class IpRule extends RandomRule {
 
 
     @Autowired
     private IpRibbonProperties.IpRuleProperties ipRule;
+    @Autowired
+    private IpExtractRouter ipExtractRouter;
 
     @Override
     public void initWithNiwsConfig(IClientConfig clientConfig) {
@@ -32,15 +31,9 @@ public class LoadBalancerIpRule extends RandomRule {
 
     @Override
     public Server choose(ILoadBalancer lb, Object key) {
-        ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        String loadIp = null;
-        if (requestAttributes != null) {
-            HttpServletRequest request = requestAttributes.getRequest();
-            loadIp = request.getHeader(ipRule.getHeadName());
-            if (StringUtils.isEmpty(loadIp)) {
-                Object attribute = request.getSession().getAttribute(ipRule.getHeadName());
-                loadIp = attribute == null ? null : attribute.toString();
-            }
+        String loadIp = ipExtractRouter.get();
+        if (StringUtils.hasText(loadIp)) {
+
         } else if (StringUtils.hasText(ipRule.getDefaultIp())) {
             loadIp = ipRule.getDefaultIp();
         }
