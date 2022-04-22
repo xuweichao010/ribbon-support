@@ -10,9 +10,9 @@
         <version>2.3.4.RELEASE</version>
     </parent>
 
-    <groupId>com.xwc</groupId>
+    <groupId>com.xwc.support</groupId>
     <artifactId>ribbon-support</artifactId>
-    <version>1.0</version>
+    <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <properties>

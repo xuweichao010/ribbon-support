@@ -25,7 +25,7 @@ public class IpRibbonProperties {
     public static class IpRuleProperties {
 
         /**
-         * 是否开启 开发路由规则
+         * 是否开启通过IP路由的规则，默认是不开启
          */
         private boolean enable = false;
 
@@ -36,11 +36,14 @@ public class IpRibbonProperties {
         private String defaultIp;
 
         /**
-         * 排除自动路由的IP正则, 排除的IP只能通过指定路由(routerIp、defaultIp)来访问，无法通过随机路由(randomIp)来访问
+         * 携带路由的的头名称
+         */
+        private String headName = "RouterIp";
+
+        /**
+         * 排除随机路由服务的IP正则, 排除的服务IP只能通过指定路由(routerIp、defaultIp)来访问，无法通过随机路由(randomIp)来访问
          */
         private Pattern excludeIpRegex;
-
-        private String targetRouterParam = "RouterIp";
 
         public void setDefaultIp(String defaultIp) {
             if ("127.0.0.1".equals(defaultIp) || "localhost".equals(defaultIp)) {
@@ -52,5 +55,10 @@ public class IpRibbonProperties {
                 }
             }
         }
+
+        public String getHeadName() {
+            return null;
+        }
+
     }
 }

@@ -39,7 +39,7 @@ public class IpRuleFilter extends ZuulFilter {
     @Override
     public Object run() {
         RequestContext context = RequestContext.getCurrentContext();
-        if (StringUtils.hasText(context.getRequest().getHeader(ipRibbonProperties.getIpRule().getTargetRouter()))) {
+        if (StringUtils.hasText(context.getRequest().getHeader(ipRibbonProperties.getIpRule().getHeadName()))) {
             return null;
         }
         ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
@@ -48,14 +48,14 @@ public class IpRuleFilter extends ZuulFilter {
         }
 
         HttpServletRequest request = requestAttributes.getRequest();
-        String header = request.getHeader(ipRibbonProperties.getIpRule().getTargetRouter());
+        String header = request.getHeader(ipRibbonProperties.getIpRule().getHeadName());
         if (StringUtils.isEmpty(header)) {
             /**
              * 这里是为了适应在线文档的一种方案，在线文档可以把ip存储在session来帮助实现在swagger上快速调用接口文档
              */
-            Object attribute = request.getSession().getAttribute(ipRibbonProperties.getIpRule().getTargetRouter());
+            Object attribute = request.getSession().getAttribute(ipRibbonProperties.getIpRule().getHeadName());
             if (attribute != null) {
-                context.addZuulRequestHeader(ipRibbonProperties.getIpRule().getTargetRouter(), attribute.toString());
+                context.addZuulRequestHeader(ipRibbonProperties.getIpRule().getHeadName(), attribute.toString());
             }
         }
         return null;
