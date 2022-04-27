@@ -27,6 +27,21 @@
 
 **路由的优先级:** `指定路由(从请求头中获取到、从seesion中获取到的)`  >  `默认路由(服务器配置的路由)` > `随机路由(系统自己决定)`
 
+### 支持框架
+
+**1.0支持**
+
+- Spring Cloud Zuul
+- Spring Cloud feign
+- Spring MVC
+
+**2.0 支持（开发中）**
+
+- Spring Flux (不支持) (开发中)
+- Spring Cloud Gateway (不支持) (开发中)
+
+- Spring RestTemplate(不支持)
+
 ### 快速开始
 
 - 添加仓库信息
