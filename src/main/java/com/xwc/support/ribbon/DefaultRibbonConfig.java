@@ -1,9 +1,8 @@
 package com.xwc.support.ribbon;
 
 import com.netflix.loadbalancer.IRule;
-import com.xwc.support.ribbon.rule.IpExtractRouter;
+import com.xwc.support.ribbon.feign.ServletExtractRouterIp;
 import com.xwc.support.ribbon.rule.IpRule;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 
 /**
@@ -12,14 +11,12 @@ import org.springframework.context.annotation.Bean;
  * 时间 2022/4/7 9:23
  */
 public class DefaultRibbonConfig {
-    @Bean
-    public IRule ribbonRule() {
-        return new IpRule();
-    }
+
 
     @Bean
-    @ConditionalOnMissingBean
-    public IpExtractRouter ipExtractRouter() {
-        return new IpExtractRouter();
+    public IRule ipRibbonRule(ServletExtractRouterIp servletExtractRouterIp,
+                              RibbonSupportProperties ribbonSupportProperties) {
+        return new IpRule(ribbonSupportProperties, servletExtractRouterIp);
     }
+
 }

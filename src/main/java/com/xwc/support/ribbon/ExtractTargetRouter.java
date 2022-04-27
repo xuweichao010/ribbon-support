@@ -7,5 +7,5 @@ package com.xwc.support.ribbon;
  */
 public interface ExtractTargetRouter {
 
-    Object get();
+    String get();
 }

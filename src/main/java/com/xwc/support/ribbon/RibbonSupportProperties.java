@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
  */
 
 @Data
-public class IpRibbonProperties {
+public class RibbonSupportProperties {
 
     /**
      * 路由配置

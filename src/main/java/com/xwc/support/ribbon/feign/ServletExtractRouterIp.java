@@ -1,7 +1,7 @@
-package com.xwc.support.ribbon.rule;
+package com.xwc.support.ribbon.feign;
 
 import com.xwc.support.ribbon.ExtractTargetRouter;
-import com.xwc.support.ribbon.IpRibbonProperties;
+import com.xwc.support.ribbon.RibbonSupportProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -14,15 +14,19 @@ import javax.servlet.http.HttpServletRequest;
  * 作者：徐卫超 (cc)
  * 时间 2022/4/12 10:03
  */
-public class IpExtractRouter implements ExtractTargetRouter {
+public class ServletExtractRouterIp implements ExtractTargetRouter {
 
-    @Autowired
-    private IpRibbonProperties.IpRuleProperties ipRule;
+
+    private RibbonSupportProperties ribbonSupportProperties;
+
+    public ServletExtractRouterIp(RibbonSupportProperties ribbonSupportProperties) {
+        this.ribbonSupportProperties = ribbonSupportProperties;
+    }
 
     @Override
     public String get() {
         ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-
+        RibbonSupportProperties.IpRuleProperties ipRule = ribbonSupportProperties.getIpRule();
         String loadIp = null;
         if (requestAttributes != null) {
             HttpServletRequest request = requestAttributes.getRequest();
@@ -31,7 +35,11 @@ public class IpExtractRouter implements ExtractTargetRouter {
                 Object attribute = request.getSession().getAttribute(ipRule.getHeadName());
                 loadIp = attribute == null ? null : attribute.toString();
             }
+        } else if (StringUtils.hasText(ipRule.getDefaultIp())) {
+            return ipRule.getDefaultIp();
         }
+
+
         return loadIp;
     }
 }
